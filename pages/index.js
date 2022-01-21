@@ -35,8 +35,8 @@ export default function Menu({pokemones}) {
       </ul> */}
       <Box sx={{ m: 10 }}>
         <Stack direction="row" spacing={3} alignItems='center' justifyContent="center">
-          <Chip label="Items" avatar={<Avatar alt='items' src="/Icons/backpack.png" />} clickable/>
-          <Chip color="default" label="Berries" avatar={<Avatar alt='berries' src="/Icons/berries.png" />} clickable/>
+          <Chip label="Items" component="a" href="/items" avatar={<Avatar alt='items' src="/Icons/backpack.png" />} clickable/>
+          <Chip color="default" component="a" href="/berries" label="Berries" avatar={<Avatar alt='berries' src="/Icons/berries.png" />} clickable/>
           <Chip label="Machines" avatar={<Avatar alt='machine' src="/Icons/machine.png" />} clickable/>
           <Chip label="Maps" avatar={<Avatar alt='map' src="/Icons/map.png" />} clickable/>
           <Chip label="Pokemon list" component="a" href="/pokemones" clickable avatar={<Avatar alt='poke' src="/Icons/poke.png" />} />
