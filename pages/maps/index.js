@@ -7,10 +7,10 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Typography from '@mui/material/Typography';
-import PokemonButton from '../Components/ButtonRef';
+import ButtonRef from '../Components/ButtonRef';
 
 
-const PokemonesList=({pokemones, count})=>{
+const Maps=({data, count})=>{
   const [page, setPage] = useState(1);
   const itemsPerPage = 12
   const handleChange = (event, value) => {
@@ -23,18 +23,20 @@ const PokemonesList=({pokemones, count})=>{
       container
       direction="column"
       justifyContent="space-between"
-      alignItems="center"
+      alignItems="center" 
       p={0.5}
       >
         <Typography variant="h4" component="div" gutterBottom sx={{py:5}}>
-          Pokemon List
+          Map List
         </Typography>
-        {pokemones.slice((page-1)*itemsPerPage, page*itemsPerPage)
+        {
+        data.slice((page-1)*itemsPerPage, page*itemsPerPage)
           .map(el =>{
             return(
-              <PokemonButton key={el.name} data={el} folder={'pokemones'}/>
+              <ButtonRef key={el.name} data={el} folder={'maps'}/>
             )
-          })}  
+          })
+          }  
         <Box sx={{ mx: "auto", width:350, pt:2}} >
           <Pagination count={totalPage} page={page} onChange={handleChange}/>
         </Box>
@@ -46,16 +48,16 @@ const PokemonesList=({pokemones, count})=>{
   )
 }
 
-export default PokemonesList
+export default Maps
 
 export const getStaticProps = async () =>{
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon`)
+  const response = await fetch(`https://pokeapi.co/api/v2/location`)
   const data = await response.json()
   const count = data.count
-  const response2 = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${count}`)
+  const response2 = await fetch(`https://pokeapi.co/api/v2/location?limit=${count}`)
   const data2 = await response2.json()
   return{
-    props: {pokemones: data2.results, count}
+    props: {data: data2.results, count}
   }
 }
 

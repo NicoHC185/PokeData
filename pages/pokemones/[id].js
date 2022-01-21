@@ -104,7 +104,7 @@ const Pokemon = ({data,id})=>{
                         sx={{width:800}}      
                     >
                         <Button href='/pokemones'>
-                            Volver
+                            Back
                         </Button>
                     </Grid>
                     
@@ -117,13 +117,8 @@ const Pokemon = ({data,id})=>{
 export default Pokemon
 
 export const getStaticProps = async({params})=>{
-    console.log(params.id);
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
-    
     const data = await response.json()
-    // const response2 = await fetch(data.species.url)
-    // const species =  await response2.json()
-    // console.log('aaaaaaaaaaaaaaaaaaaaa',data);
     return {
         props: {data, id: params.id}
     }
@@ -138,5 +133,3 @@ export const getStaticPaths = async()=>{
         fallback: 'blocking'
     }
 }
-
-// export const getStaticPaths

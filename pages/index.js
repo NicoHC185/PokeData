@@ -18,12 +18,8 @@ import styled from 'styled-components'
 export default function Menu({pokemones}) {
   return (
     <Container fixed maxWidth='s'>
-      <div>
-        <head>
-          <title>PokeData test</title>
+      <title>PokeData test</title>
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
-        </head>
-      </div>
       <Box sx={{ width: '100%', maxWidth: 750, mt:15, mx:'auto'}}>
         <Image src={'/Icons/Logo.png'} width={750} height={300}/>
       </Box>
@@ -38,7 +34,7 @@ export default function Menu({pokemones}) {
           <Chip label="Items" component="a" href="/items" avatar={<Avatar alt='items' src="/Icons/backpack.png" />} clickable/>
           <Chip color="default" component="a" href="/berries" label="Berries" avatar={<Avatar alt='berries' src="/Icons/berries.png" />} clickable/>
           <Chip label="Machines" avatar={<Avatar alt='machine' src="/Icons/machine.png" />} clickable/>
-          <Chip label="Maps" avatar={<Avatar alt='map' src="/Icons/map.png" />} clickable/>
+          <Chip label="Maps" component="a" href="/maps" avatar={<Avatar alt='map' src="/Icons/map.png" />} clickable/>
           <Chip label="Pokemon list" component="a" href="/pokemones" clickable avatar={<Avatar alt='poke' src="/Icons/poke.png" />} />
         </Stack>
       </Box>

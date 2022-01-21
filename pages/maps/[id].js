@@ -10,36 +10,30 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid'
 
+import ButtonRef from '../Components/ButtonRef';
 
-
-const ImageCard = ({data})=>{
-    return(    
-        <Image src={data.sprites.default} width={200} height={200}/>
-    )
-}
-
-
-
-const Berries = ({data,id})=>{
+const Mapa = ({data,pokemon_encounters})=>{
     const router = useRouter()
-    console.log(data)
     if (router.isFallback){
         return(
             <h1>Cargando...</h1>
         )
     }
+    
     return(
         <Grid
-            sx={{width:600, mx:'auto', mt:'5%'}}  
+            container
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{mt:'5%'}}
         >
             <Card>
                 <CardContent>
                     <Grid
                         container
                         direction="column"
-                        alignItems="center"
-                        p={0.5}            
-                        // sx={{width:400}}      
+                        alignItems="center"  
                     >
                         <Typography sx={{ fontSize: 32 }} color="text.secondary" gutterBottom>
                             {data.name}
@@ -47,59 +41,53 @@ const Berries = ({data,id})=>{
                     </Grid>
                     <Grid
                         container
-                        direction="row"
-                        spacing={2}
+                        direction="row"               
                     >
-                        <Grid 
-                            xs={6}
-                            item
-                            container
-                            justifyContent="center"
-                            alignItems="flex-start"
-                        >
-                            <ImageCard data={data}></ImageCard>
-                        </Grid>
-                        
+                        {/* <ImageCard data={data}></ImageCard> */}
                         <Grid
                             container
                             direction="column"
-                            // p={0.5}            
-                            item   
-                            xs={6} 
+                            sx={{width:500, mt:0}}
                         >
-                            <Typography variant="h5" component="column" sx={{mt:'5%'}}>
-                                Category: <Typography variant='h8'>{data.category.name}</Typography>
+                            <Typography variant="h5" component="column" sx={{mt:'2.5%'}}>
+                                Region: <Typography variant='h8'>{data.region.name}</Typography>
                             </Typography>
                             <Typography variant="h5" component="column">
-                                Effects: <Typography variant='h8'>{data.effect_entries[0].effect}</Typography>
+                                Generation: <Typography variant='h8'>{data.game_indices[0].generation.name.split('-')[1]}</Typography>
                             </Typography>
+                            <Typography variant="h5" component="column">
+                                Pokemon encounters:
+                                {pokemon_encounters.map(el => <ButtonRef folder={'pokemones'} data={el.pokemon} key={el.pokemon.name}/>)}
+                            </Typography>
+                            
                         </Grid>
                     </Grid>
                     <Grid
                         container
                         direction="column"
                         alignItems="center"
-                        pt={3}              
+                        p={0.5}            
                     >
-                        <Button href='/berries'>
+                        <Button href='/maps'>
                             Back
                         </Button>
                     </Grid>
+                    
                 </CardContent>
             </Card>
         </Grid>
     )
 }
 
-export default Berries
+export default Mapa
 
 export const getStaticProps = async({params})=>{
-    const response = await fetch(`https://pokeapi.co/api/v2/berry/${params.id}`)
+    const response = await fetch(`https://pokeapi.co/api/v2/location/${params.id}`)
     const data = await response.json()
-    const res = await fetch(`${data.item.url}`)
-    const data2 = await res.json()
+    const response2 = await fetch(`${data.areas[0].url}`)
+    const data2 =  await response2.json()
     return {
-        props: {data: data2, id: params.id}
+        props: {data, pokemon_encounters: data2.pokemon_encounters}
     }
 }
 
@@ -112,5 +100,3 @@ export const getStaticPaths = async()=>{
         fallback: 'blocking'
     }
 }
-
-// export const getStaticPaths

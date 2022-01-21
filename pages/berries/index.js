@@ -7,33 +7,14 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Typography from '@mui/material/Typography';
+import ButtonRef from '../Components/ButtonRef';
 
-const Pokemon = ({data, page})=>{
-  console.log(data)
-  const id = data.url.split('/').filter(x => x).pop()
-  return(
-    <Grid
-      container
-      direction="column"
-      justifyContent="space-between"
-      alignItems="center"
-      p={0.5}
-    >
-      <Button variant='contained'>
-        <Link href={`/berries/${id}`}>{`${data.name}`}</Link>
-      </Button> 
-    </Grid>   
-  )
-}
-
-
-const PokemonesList=({data, count})=>{
+const BerriesList=({data, count})=>{
   const [page, setPage] = useState(1);
   const itemsPerPage = 12
   const handleChange = (event, value) => {
     setPage(value);
   };
-  console.log(count);
   const totalPage = Math.round(count/itemsPerPage)
   return(
     <Container>
@@ -50,7 +31,7 @@ const PokemonesList=({data, count})=>{
         {data.slice((page-1)*itemsPerPage, page*itemsPerPage)
           .map(el =>{
             return(
-              <Pokemon key={el.name} data={el}/>
+              <ButtonRef key={el.name} data={el} folder={'berries'}/>
             )
           })}  
         <Box sx={{ mx: "auto", width:280, pt:2}} >
@@ -64,16 +45,14 @@ const PokemonesList=({data, count})=>{
   )
 }
 
-export default PokemonesList
+export default BerriesList
 
 export const getStaticProps = async () =>{
   const response = await fetch(`https://pokeapi.co/api/v2/berry`)
   const data = await response.json()
-  console.log(data)
   const count = data.count
   const response2 = await fetch(`https://pokeapi.co/api/v2/berry?limit=${count}`)
   const data2 = await response2.json()
-  console.log(data2)
   return{
     props: {data: data2.results, count}
   }
