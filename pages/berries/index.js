@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Typography from '@mui/material/Typography';
-import ButtonRef from '../Components/ButtonRef';
+import ButtonRef from '../../Components/ButtonRef';
 
 const BerriesList=({data, count})=>{
   const [page, setPage] = useState(1);

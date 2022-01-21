@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Typography from '@mui/material/Typography';
-import PokemonButton from '../Components/ButtonRef';
+import PokemonButton from '../../Components/ButtonRef';
 
 
 const PokemonesList=({pokemones, count})=>{
